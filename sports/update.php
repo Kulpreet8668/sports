@@ -1,7 +1,7 @@
 <?php
 
   require_once('../_config.php');
-  session_start();
+  // session_start();
   include_once('_utilities/_connect.php'); 
     /*
     OBJECTIVE:
@@ -12,15 +12,28 @@
       3: Redirect to notification.php.
   */
 
+  $conn = connect();
   $id = $_POST['id'];
   $team_name = $_POST['team_name'];
   $mvp = $_POST['mvp'];
   $sport_type = $_POST['sport_type'];
 
-  $sql = "UPDATE spot SET
+  $sql = "UPDATE sports SET
   team_name ='$team_name',
   mvp ='$mvp',
-  sport_type ='$sport_type
+  sport_type ='$sport_type'
   WHERE id = $id";
+
+
+$result = mysqli_query($conn, $sql);
+session_start();
+if($result){
+  $_SESSION['notification'] = "your data is updated successfully";
+}
+else{
+  $_SESSION['notification'] = "your data is not updated ";
+}
+header("Location:../notification.php");
+exit;
 
 ?>

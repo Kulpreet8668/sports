@@ -1,6 +1,6 @@
 <?php require_once('../_config.php') ?>
 <?php include_once('_partials/_header.php') ?>
-<?php include_once('_utilities/_connect.php'); ?> 
+
 <!--
   OBJECTIVE:
     1: Include the header and footer files (I have provided you the _config.php).
@@ -11,13 +11,14 @@
 -->
 <?php
   $conn = connect();
- $id = $_GET['id']; 
+//  $id = $_GET['id']; 
 
-	$sql = "SELECT * FROM sports WHERE id=$id";
-	$result = mysqli_query($conn,$sql);
-	if(!$result){
-		echo mysqli_error($conn);
-	}
+// 	$sql = "SELECT * FROM sports WHERE id=$id";
+$result = mysqli_query($conn, "SELECT * FROM sports WHERE id = {$_GET['id']}");
+	// $result = mysqli_query($conn,$sql);
+	// if(!$result){
+	// 	echo mysqli_error($conn);
+	
     $row = mysqli_fetch_assoc($result);
  ?>
 
@@ -32,20 +33,25 @@
       <input type="hidden" name="id" value="<?= $_GET['id']; ?>">
 	<div class='form-group'>
 		<label>Team Name</label>
-		<input class="form-control" type="text" name="team_name" value="<?= $row['team_name']; ?>">
+		<input class="form-control" type="text" name="team_name" value="<?= $row['team_name'] ?>">
 	</div>
 
 	<div class='form-group'>
 		<label>Mvp</label>
-		<input class="form-control" type="text" name="mvp"  value="<?= $row['mvp']; ?>">
+		<input class="form-control" type="text" name="mvp"  value="<?= $row['mvp'] ?>">
 	</div>
 
 	<div class='form-group'>
 		<label>Sport Type</label>
-		<input class="form-control" type="text" name="sport_type"  value="<?= $row['sport_type']; ?>">
+		<input class="form-control" type="text" name="sport_type"  value="<?= $row['sport_type'] ?>">
 	</div>
 
-	<button class="btn btn-primary" type="submit">Create</button>
+	<!--<div class='form-group'>
+		
+		<input class="form-control" type="hidden" name="id" value="<?= $row['id']?>">
+	</div>-->
+
+	<button class="btn btn-primary" type="submit">Update</button>
 </form>
 
 <?php include_once('_partials/_footer.php') ?>

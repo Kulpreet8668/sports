@@ -1,7 +1,7 @@
 <?php
 
   require_once('../_config.php');
-  session_start();
+  // session_start();
   include_once('_utilities/_connect.php'); 
 
   /*
@@ -14,10 +14,11 @@
   */
 
     $conn = connect();
-  $sql = "INSERT INTO spot(
+  $sql = "INSERT INTO sports (
     team_name,
-    Mvp,
-    Sport_type
+    mvp,
+    sport_type
+
     ) 
     VALUES (
       '{$_POST['team_name']}',
@@ -27,13 +28,17 @@
     )";
 
     $result = mysqli_query($conn, $sql);
+    session_start();
 
     if($result){
       $_SESSION['notification'] = "your data is inserted successfully";
-      header("Location:../notification.php");
+      
     }
     else{
       $_SESSION['notification'] = "your data is not inserted ";
-      header("Location:../notification.php");
+      
+
     }
+    header("Location:../notification.php");
+    exit;
 ?>

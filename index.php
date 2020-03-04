@@ -1,5 +1,6 @@
 <?php require_once('./_config.php') ?>
 <?php include_once('_partials/_header.php') ?>
+<?php include_once('_utilities/_connect.php'); ?>
 <?php
 
   // OBJECTIVE:
@@ -7,8 +8,8 @@
   //   2: Fetch all the sports rows from the database and display them in a table.
   //   3: Create two links for each row that point to the edit.php and delete.php files. These links must provide a query parameter called 'id' with the row's id column's value.
 $conn = connect();
-$sql ="SELECT * FROM sports";
-$result = mysqli_query($conn,$sql);
+// $sql ="SELECT * FROM sports";
+$result = mysqli_query($conn, "SELECT * FROM sports");
 $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
 ?>
 <header>
@@ -33,9 +34,15 @@ $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
     echo "<td>{$row['team_name']}</td>";
     echo "<td>{$row['mvp']}</td>";
     echo "<td>{$row['sport_type']}</td>";
-    echo "<td><a href='". BASE_PATH ."/sports/edit.php?id={$row['id']}'>edit</a></td>";
-    echo "|";
-    echo "<td><a href=". BASE_PATH ."'/sports/delete.php?id={$row['id']}'>delete</a></td>";
+    echo "<td>";
+    // echo "<td><a href='". BASE_PATH ."/sports/edit.php?id={$row['id']}'>edit</a></td>";
+    // echo "|";
+    // echo "<td><a href=". BASE_PATH ."'/sports/delete.php?id={$row['id']}'>delete</a></td>";
+
+    echo"<td><a href='./sports/edit.php?id={$row['id']}'>edit</a></td>";
+     echo"|";
+     echo"<td><a href='./sports/delete.php?id={$row['id']}'>delete</a></td>";
+    echo "</td>";
     echo "</tr>";
 
 
